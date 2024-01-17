@@ -1,0 +1,55 @@
+#SimpleUI
+- https://github.com/evolutionleo/SimpleUI/
+- updated: july 2024
+- GM version: 2.3 / LTS
+- dependencies: no other library needed
+- license: MIT
+- documentation: No
+- input: mouse (hardcoded but easily editable)
+- elements: box, text, button, sprite, textbox/textinput
+- draw: pre-draw, draw, post-draw methods for your to customize
+- elements animation: I think yes
+- note: 1 basic controller to draw and step
+- syntax:
+_fps = -1; 
+canvas = new SUICanvas([
+	new SUIText(room_width/2, room_height/2, SUIBind("global.some_text"),
+		{font: fSimpleUITitle, halign: fa_center, valign: fa_middle})
+])
+canvas.appendChild(new SUIText(50, 50, SUIBind("._fps"))) // bind to a variable
+canvas.appendChild(new SUIButton(200, 100, "Click me", function() { show_message_async("Clicked!") }))
+canvas.appendChild(new SUISprite(700, 50, sSimpleUIDemo, 0, {w: 200, h: 50}))
+canvas.appendChild(new SUITextInput(100, 400,,,SUIBind("global.some_text", "global.some_text"),"Enter the title"))
+
+#PXLUI
+- https://github.com/1pxlchibs/PXLUI
+- updated: july 2024
+- GM version: 2.3 / LTS
+- dependencies: no other library needed
+- license: MIT
+- documentation: Ye
+- input: keyboard/gamepad (configurable through Input library).
+- elements: box, text, button, srpite_button, sprite, textbox/textinput, checkbox, sccrollview, slider, slot, inventory, card, container
+- draw: draw to surface, then draw surface. Allowing to customize how it draws
+- elements animation: I think yes
+- and more: themes to define sprite/color/font for elements
+
+- note: struct system (needs to be step in controller / timesource)
+- syntax:
+pxlui.add_page("Main",[
+	pxlui_button("35","90",lexicon_text("ui.newgame"),80,20,,,function(){
+		instance_destroy();
+		room_goto_next(); 
+		
+		audio_stop_sound(snd_mainmenu);
+		audio_stop_sound(snd_rain);
+	}),
+	load_game,
+	pxlui_button("65","90",lexicon_text("ui.options"),80,20,,,function(){
+		pxlui.unload_page("Main");
+		pxlui.load_page("Options");
+	}),
+	pxlui_button("80","90",lexicon_text("ui.exit"),80,20,,,function(){
+		game_end();
+	})
+]);
